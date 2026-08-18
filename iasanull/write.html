@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
+<title>글 작성 - IASA 게시판</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Pretendard",sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+}
+
+header{
+    background:#5FA8E8;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    text-align:center;
+}
+
+.container{
+    width:900px;
+    margin:30px auto;
+}
+
+.notice{
+    background:#fff8d6;
+    border-left:5px solid orange;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:25px;
+}
+
+.form-box{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+textarea{
+    width:100%;
+    height:400px;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    resize:vertical;
+    font-size:15px;
+    outline:none;
+}
+
+.bottom{
+    margin-top:30px;
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+button{
+    border:none;
+    background:#5FA8E8;
+    color:white;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.2s;
+    font-size:15px;
+}
+
+button:hover{
+    background:#4b97d9;
+}
+
+.cancel{
+    background:#999;
+}
+
+.cancel:hover{
+    background:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>IASA 게시판</h1>
+
+</header>
+
+<div class="container">
+
+<div class="notice">
+
+학생 누구나 자유롭게 글을 작성할 수 있습니다.
+
+</div>
+
+<div class="form-box">
+
+<div class="form-group">
+
+<label>제목</label>
+
+<input
+id="title"
+type="text"
+maxlength="100"
+placeholder="제목을 입력하세요">
+
+</div>
+
+<div class="form-group">
+
+<label>내용</label>
+
+<textarea
+id="content"
+placeholder="내용을 입력하세요"></textarea>
+
+</div>
+
+<div class="bottom">
+
+<button
+class="cancel"
+onclick="history.back()">
+
+취소
+
+</button>
+
+<button
+onclick="writePost()">
+
+등록
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+async function writePost(){
+
+    const title=document.getElementById("title").value.trim();
+
+    const content=document.getElementById("content").value.trim();
+
+    if(title===""){
+
+        alert("제목을 입력하세요.");
+
+        return;
+
+    }
+
+    if(content===""){
+
+        alert("내용을 입력하세요.");
+
+        return;
+
+    }
+
+    try{
+
+        const response=await fetch("/api/posts",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                title:title,
+
+                content:content
+
+            })
+
+        });
+
+        const result=await response.json();
+
+        if(result.success){
+
+            alert("게시글이 등록되었습니다.");
+
+            location.href="index.html";
+
+        }else{
+
+            alert("등록에 실패했습니다.");
+
+        }
+
+    }
+
+    catch(err){
+
+        console.error(err);
+
+        alert("서버와 연결할 수 없습니다.");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
