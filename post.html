@@ -1,172 +1,226 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 
-<title>게시글 - IASA 게시판</title>
+    <title>게시글 - IASA 게시판</title>
 
-<style>
+    <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Pretendard",sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Pretendard", sans-serif;
+        }
 
-body{
-    background:#f5f7fb;
-}
+        body {
+            background: #f5f7fb;
+        }
 
-header{
-    background:#5FA8E8;
-    color:white;
-    padding:20px;
-}
+        header {
+            background: #5FA8E8;
+            color: white;
+            padding: 20px;
+        }
 
-header h1{
-    text-align:center;
-}
+        header h1 {
+            text-align: center;
+        }
 
-.container{
-    width:900px;
-    margin:30px auto;
-}
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
 
-.post-box{
-    background:white;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-    padding:30px;
-}
+        .post-box {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+            padding: 30px;
+        }
 
-#title{
-    font-size:28px;
-    margin-bottom:15px;
-}
+        #title {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
 
-.info{
-    color:#666;
-    border-bottom:1px solid #ddd;
-    padding-bottom:15px;
-    margin-bottom:25px;
-}
+        .info {
+            color: #666;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
 
-#content{
-    white-space:pre-wrap;
-    line-height:1.8;
-    min-height:300px;
-}
+        #content {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            min-height: 300px;
+        }
 
-.bottom{
-    margin-top:30px;
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-}
+        .bottom {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
 
-button{
-    border:none;
-    background:#5FA8E8;
-    color:white;
-    padding:12px 24px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.2s;
-}
+        button {
+            border: none;
+            background: #5FA8E8;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: .2s;
+        }
 
-button:hover{
-    background:#4b97d9;
-}
+        button:hover {
+            background: #4b97d9;
+        }
 
-</style>
+        @media (max-width: 600px) {
+
+            body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            header {
+                padding: 16px 12px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 94%;
+                max-width: none;
+                margin: 18px auto;
+            }
+
+            .post-box {
+                width: 100%;
+                padding: 18px;
+                border-radius: 10px;
+            }
+
+            #title {
+                font-size: 22px;
+                line-height: 1.4;
+                margin-bottom: 12px;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+            }
+
+            .info {
+                font-size: 13px;
+                line-height: 1.5;
+                padding-bottom: 12px;
+                margin-bottom: 20px;
+            }
+
+            #content {
+                width: 100%;
+                min-height: 250px;
+                font-size: 15px;
+                line-height: 1.7;
+                white-space: pre-wrap;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+            }
+
+            .bottom {
+                width: 100%;
+                margin-top: 25px;
+            }
+
+            .bottom button {
+                width: 100%;
+                padding: 13px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<header>
+    <header>
 
-<h1>IASA 게시판</h1>
+        <h1>IASA 게시판</h1>
 
-</header>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-<div class="post-box">
+        <div class="post-box">
 
-<h2 id="title">불러오는 중...</h2>
+            <h2 id="title">불러오는 중...</h2>
 
-<div class="info">
-작성일 :
-<span id="date"></span>
-</div>
+            <div class="info">
 
-<div id="content"></div>
+                작성일 :
+                <span id="date"></span>
 
-<div class="bottom">
+            </div>
 
-<button onclick="history.back()">
-목록으로
-</button>
+            <div id="content"></div>
 
-</div>
+            <div class="bottom">
 
-</div>
+                <button onclick="history.back()">
 
-</div>
+                    목록으로
 
-<script>
+                </button>
 
-const params=new URLSearchParams(location.search);
+            </div>
 
-const id=params.get("id");
+        </div>
 
-async function loadPost(){
+    </div>
 
-    try{
+    <script>
 
-        const res=await fetch("/api/posts/"+id);
+        const params = new URLSearchParams(location.search);
+        const id = params.get("id");
+        async function loadPost() {
 
-        if(!res.ok){
+            try {
+                const res = await fetch("/api/posts/" + id);
+                if (!res.ok) {
+                    document.getElementById("title").innerText = "존재하지 않는 게시글";
+                    return;
+                }
 
-            document.getElementById("title").innerText="존재하지 않는 게시글";
+                const post = await res.json();
+                document.getElementById("title").innerText = post.title;
+                const date = new Date(post.created_at);
 
-            return;
+                document.getElementById("date").innerText =
+                    date.getFullYear() + "-" +
+                    String(date.getMonth() + 1).padStart(2, "0") + "-" +
+                    String(date.getDate()).padStart(2, "0");
+                document.getElementById("content").innerText = post.content;
+            }
 
+            catch (err) {
+                console.error(err);
+                alert("게시글을 불러올 수 없습니다.");
+            }
         }
 
-        const post=await res.json();
+        loadPost();
 
-        document.getElementById("title").innerText=post.title;
-
-        const date=new Date(post.created_at);
-
-        document.getElementById("date").innerText=
-        date.getFullYear()+"-"+
-        String(date.getMonth()+1).padStart(2,"0")+"-"+
-        String(date.getDate()).padStart(2,"0");
-
-        document.getElementById("content").innerText=post.content;
-
-    }
-
-    catch(err){
-
-        console.error(err);
-
-        alert("게시글을 불러올 수 없습니다.");
-
-    }
-
-}
-
-loadPost();
-
-</script>
+    </script>
 
 </body>
 </html>
