@@ -1,296 +1,461 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 
-<title>IASA 게시판z</title>
+    <title>IASA 게시판</title>
 
-<style>
+    <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Pretendard",sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Pretendard", sans-serif;
+        }
 
-body{
-    background:#f5f7fb;
-}
+        body {
+            background: #f5f7fb;
+        }
 
-header{
-    background:#5FA8E8;
-    color:white;
-    padding:20px;
-}
+        header {
+            background: #5FA8E8;
+            color: white;
+            padding: 20px;
+        }
 
-header h1{
-    text-align:center;
-}
+        header h1 {
+            text-align: center;
+        }
 
-.container{
-    width:1100px;
-    margin:30px auto;
-}
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
 
-.notice{
-    background:#fff8d6;
-    border-left:5px solid orange;
-    padding:15px;
-    border-radius:8px;
-    margin-bottom:25px;
-}
+        .notice {
+            background: #fff8d6;
+            border-left: 5px solid orange;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
 
-.top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.search{
-    display:flex;
-    gap:10px;
-}
+        .search {
+            display: flex;
+            gap: 10px;
+        }
 
-.search input{
-    width:300px;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-}
+        .search input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
 
-button{
-    border:none;
-    background:#5FA8E8;
-    color:white;
-    padding:11px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.2s;
-}
+        button {
+            border: none;
+            background: #5FA8E8;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: .2s;
+        }
 
-button:hover{
-    background:#4b97d9;
-}
+        button:hover {
+            background: #4b97d9;
+        }
 
-.post-list{
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
+        .post-list {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+        }
 
-.post{
-    display:flex;
-    align-items:center;
-    padding:15px 20px;
-    border-bottom:1px solid #eee;
-}
+        .post {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
 
-.post.header{
-    background:#eef4fb;
-    font-weight:bold;
-}
+        .post.header {
+            background: #eef4fb;
+            font-weight: bold;
+        }
 
-.post:not(.header){
-    cursor:pointer;
-}
+        .post:not(.header) {
+            cursor: pointer;
+        }
 
-.post:not(.header):hover{
-    background:#f7fbff;
-}
+        .post:not(.header):hover {
+            background: #f7fbff;
+        }
 
-.number{
-    width:80px;
-}
+        .number {
+            width: 80px;
+        }
 
-.title{
-    flex:1;
-}
+        .title {
+            flex: 1;
+        }
 
-.date{
-    width:150px;
-    text-align:center;
-    color:#666;
-}
+        .date {
+            width: 150px;
+            text-align: center;
+            color: #666;
+        }
 
-.pagination{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-top:20px;
-}
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 20px;
+        }
 
-.empty{
-    padding:40px;
-    text-align:center;
-    color:#888;
-}
+        .pagination button {
+            min-width: 40px;
+            padding: 9px 12px;
+        }
 
-</style>
+        .pagination button.active {
+            background: #357fbd;
+            font-weight: bold;
+        }
+
+        .pagination button:disabled {
+            background: #ccc;
+            cursor: default;
+        }
+
+        .empty {
+            padding: 40px;
+            text-align: center;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            header {
+                padding: 16px 12px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 94%;
+                max-width: none;
+                margin: 18px auto;
+            }
+
+            .notice {
+                padding: 12px;
+                margin-bottom: 18px;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .top {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .search {
+                display: flex;
+                width: 100%;
+                gap: 6px;
+            }
+
+            .search input {
+                width: auto;
+                flex: 1;
+                min-width: 0;
+                padding: 10px;
+            }
+
+            .search button {
+                flex-shrink: 0;
+                padding: 10px 14px;
+            }
+
+            .top > button {
+                width: 100%;
+            }
+
+            .post-list {
+                width: 100%;
+            }
+
+            .post {
+                padding: 13px 10px;
+                min-width: 0;
+            }
+
+            .post.header {
+                padding: 12px 10px;
+            }
+
+            .number {
+                width: 40px;
+                flex-shrink: 0;
+                font-size: 13px;
+            }
+
+            .title {
+                min-width: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding-right: 8px;
+            }
+
+            .date {
+                width: 75px;
+                flex-shrink: 0;
+                font-size: 11px;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 18px;
+                margin-bottom: 20px;
+            }
+
+            .pagination button {
+                min-width: 36px;
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<header>
+    <header>
 
-<h1>IASA 게시판</h1>
+        <h1>IASA 게시판</h1>
 
-</header>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-<div class="notice">
+        <div class="notice">
 
-학생 누구나 자유롭게 글을 작성할 수 있습니다.<br>
-부적절한 게시글은 관리자가 삭제할 수 있습니다.
+            여기에 공지글 적기
 
-</div>
+        </div>
 
-<div class="top">
+        <div class="top">
 
-<div class="search">
+            <div class="search">
 
-<input type="text" id="keyword" placeholder="검색어">
+                <input type="text" id="keyword" placeholder="검색어">
 
-<button onclick="searchPost()">검색</button>
+                <button onclick="searchPost()">검색</button>
 
-</div>
-
-<button onclick="location.href='write.html'">
-
-+ 글 작성
-
-</button>
-
-</div>
-
-<div class="post-list">
-
-<div class="post header">
-
-<div class="number">번호</div>
-
-<div class="title">제목</div>
-
-<div class="date">작성일</div>
-
-</div>
-
-<div id="posts"></div>
-
-</div>
-
-</div>
-
-<script>
-
-async function loadPosts(){
-
-    try{
-
-        const response=await fetch("/api/posts");
-
-        const list=await response.json();
-
-        const posts=document.getElementById("posts");
-
-        posts.innerHTML="";
-
-        if(list.length===0){
-
-            posts.innerHTML=`
-            <div class="empty">
-                아직 작성된 글이 없습니다.
             </div>
-            `;
 
-            return;
+            <button onclick="location.href='write.html'">
 
+                + 글 작성
+
+            </button>
+
+        </div>
+
+        <div class="post-list">
+
+            <div class="post header">
+
+                <div class="number">번호</div>
+
+                <div class="title">제목</div>
+
+                <div class="date">작성일</div>
+
+            </div>
+
+            <div id="posts"></div>
+
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+
+    </div>
+
+    <script>
+
+        let allPosts = [];
+        let currentPage = 1;
+        const postsPerPage = 10;
+
+        async function loadPosts() {
+            try {
+                const response = await fetch("/api/posts");
+                allPosts = await response.json();
+                currentPage = 1;
+                renderPosts();
+            }
+
+            catch (err) {
+                console.error(err);
+                alert("게시글을 불러올 수 없습니다.");
+            }
         }
 
-        list.forEach(post=>{
 
-            const date=new Date(post.created_at);
+        function renderPosts() {
+            const posts = document.getElementById("posts");
+            const pagination = document.getElementById("pagination");
 
-            const y=date.getFullYear();
+            posts.innerHTML = "";
+            pagination.innerHTML = "";
 
-            const m=String(date.getMonth()+1).padStart(2,"0");
+            if (allPosts.length === 0) {
+                posts.innerHTML = `
+                    <div class="empty">
+                        아직 작성된 글이 없습니다.
+                    </div>
+                `;
 
-            const d=String(date.getDate()).padStart(2,"0");
+                return;
+            }
 
-            posts.innerHTML+=`
+            // 현재 페이지에 표시할 글 계산
 
-            <div class="post" onclick="openPost(${post.id})">
+            const start = (currentPage - 1) * postsPerPage;
+            const end = start + postsPerPage;
+            const pagePosts = allPosts.slice(start, end);
 
-                <div class="number">${post.id}</div>
+            // 게시글 표시
 
-                <div class="title">${post.title}</div>
+            pagePosts.forEach(post => {
+                const date = new Date(post.created_at);
+                const y = date.getFullYear();
+                const m = String(date.getMonth() + 1).padStart(2, "0");
+                const d = String(date.getDate()).padStart(2, "0");
 
-                <div class="date">${y}-${m}-${d}</div>
+                posts.innerHTML += `
+                    <div class="post" onclick="openPost(${post.id})">
 
-            </div>
+                        <div class="number">${post.id}</div>
 
-            `;
+                        <div class="title">${post.title}</div>
 
+                        <div class="date">${y}-${m}-${d}</div>
+
+                    </div>
+
+                `;
+            });
+
+
+            // 페이지 수
+
+            const totalPages = Math.ceil(allPosts.length / postsPerPage);
+
+            // 페이지 버튼
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+
+                button.innerText = i;
+
+                if (i === currentPage) {
+                    button.classList.add("active");
+                }
+
+                button.onclick = () => {
+                    currentPage = i;
+                    renderPosts();
+                };
+
+                pagination.appendChild(button);
+            }
+        }
+
+
+        function openPost(id) {
+            location.href = "post.html?id=" + id;
+        }
+
+
+        async function searchPost() {
+
+            const keyword = document
+                .getElementById("keyword")
+                .value
+                .trim();
+
+            if (keyword === "") {
+                loadPosts();
+
+                return;
+
+            }
+
+            try {
+                const response = await fetch(
+                    "/api/posts/search?keyword=" + encodeURIComponent(keyword)
+                );
+
+                if (!response.ok) {
+                    throw new Error("검색 실패");
+                }
+
+                allPosts = await response.json();
+                currentPage = 1;
+
+                renderPosts();
+            }
+
+            catch (err) {
+                console.error(err);
+                alert("검색할 수 없습니다.");
+            }
+        }
+
+
+        document.getElementById("keyword").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                searchPost();
+            }
         });
-
-    }
-
-    catch(err){
-
-        console.error(err);
-
-        alert("게시글을 불러올 수 없습니다.");
-
-    }
-
-}
-
-function openPost(id){
-
-    location.href="post.html?id="+id;
-
-}
-
-function searchPost(){
-
-    const keyword=document.getElementById("keyword").value.trim();
-
-    if(keyword===""){
 
         loadPosts();
 
-        return;
-
-    }
-
-    const posts=document.querySelectorAll(".post:not(.header)");
-
-    posts.forEach(post=>{
-
-        const title=post.querySelector(".title").innerText;
-
-        if(title.includes(keyword))
-
-            post.style.display="flex";
-
-        else
-
-            post.style.display="none";
-
-    });
-
-}
-
-loadPosts();
-
-</script>
+    </script>
 
 </body>
 </html>
