@@ -1,116 +1,388 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Pretendard -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    >
 
     <title>글 작성 - IASA 게시판</title>
 
+
     <style>
+
+        /* ==================================================
+           기본 설정
+        ================================================== */
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+
             font-family: "Pretendard", sans-serif;
         }
 
-        body {
-            background: #f5f7fb;
+        :root {
+            --primary: #4F8FE8;
+            --primary-dark: #3C78CC;
+            --primary-light: #EEF5FF;
+
+            --text: #263445;
+            --sub-text: #7B8798;
+
+            --background: #F4F7FB;
+            --white: #FFFFFF;
+
+            --border: #E2E8F0;
+            --border-light: #EDF1F5;
+
+            --notice: #F3A83B;
         }
 
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #F7F9FC 0%,
+                    #F3F6FA 100%
+                );
+
+            color: var(--text);
+
+            letter-spacing: -0.15px;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+
+
+        /* ==================================================
+           헤더
+        ================================================== */
+
         header {
-            background: #5FA8E8;
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4F8FE8 0%,
+                    #527FE0 100%
+                );
+
             color: white;
-            padding: 20px;
+
+            box-shadow:
+                0 3px 12px rgba(49, 79, 125, 0.16);
+
+            position: relative;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .header-inner {
+            width: 92%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
         }
 
         header h1 {
-            text-align: center;
+            font-size: 23px;
+
+            font-weight: 750;
+
+            letter-spacing: -0.8px;
+
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.08);
         }
+
+
+
+        /* ==================================================
+           전체 컨테이너
+        ================================================== */
 
         .container {
-            width: 90%;
+            width: 92%;
             max-width: 900px;
-            margin: 30px auto;
+
+            margin: 30px auto 50px;
         }
+
+
+
+        /* ==================================================
+           공지사항
+        ================================================== */
 
         .notice {
-            background: #fff8d6;
-            border-left: 5px solid orange;
-            padding: 15px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.92);
+
+            border: 1px solid var(--border);
+
+            border-left: 4px solid var(--notice);
+
+            padding: 15px 18px;
+
+            border-radius: 9px;
+
             margin-bottom: 25px;
+
+            font-size: 14px;
+
+            color: #5F6B7A;
+
+            line-height: 1.6;
+
+            box-shadow:
+                0 2px 8px rgba(43, 67, 96, 0.035);
         }
 
+
+
+        /* ==================================================
+           작성 폼
+        ================================================== */
+
         .form-box {
-            background: white;
+            background: var(--white);
+
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 12px rgba(43, 67, 96, 0.045);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
         }
 
         label {
             display: block;
+
             margin-bottom: 8px;
-            font-weight: 600;
+
+            color: #344255;
+
+            font-size: 14px;
+
+            font-weight: 650;
+
+            letter-spacing: -0.3px;
         }
 
-        input {
+
+
+        /* ==================================================
+           입력창
+        ================================================== */
+
+        input,
+        textarea,
+        select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
+
+            border: 1px solid #D8E0EA;
+
             border-radius: 8px;
-            font-size: 15px;
+
+            background: white;
+
+            color: var(--text);
+
             outline: none;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        input,
+        select {
+            height: 44px;
+
+            padding: 0 13px;
+
+            font-size: 14px;
         }
 
         textarea {
-            width: 100%;
-            height: 400px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            min-height: 400px;
+
+            padding: 13px;
+
             resize: vertical;
-            font-size: 15px;
-            outline: none;
+
+            font-size: 14px;
+
+            line-height: 1.65;
         }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #A1AAB7;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(79, 143, 232, 0.11);
+
+            background: #FCFDFF;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+
+
+        /* ==================================================
+           하단 버튼 영역
+        ================================================== */
 
         .bottom {
-            margin-top: 30px;
             display: flex;
+
             justify-content: flex-end;
-            gap: 10px;
+
+            gap: 9px;
+
+            margin-top: 28px;
+
+            padding-top: 22px;
+
+            border-top: 1px solid var(--border-light);
         }
 
-        button {
+        .bottom button {
             border: none;
-            background: #5FA8E8;
-            color: white;
-            padding: 12px 24px;
+
+            min-width: 88px;
+
+            height: 42px;
+
+            padding: 0 18px;
+
             border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
             cursor: pointer;
-            transition: .2s;
-            font-size: 15px;
+
+            transition:
+                transform 0.18s,
+                box-shadow 0.18s,
+                background 0.18s;
         }
 
-        button:hover {
-            background: #4b97d9;
+
+
+        /* ==================================================
+           등록 버튼
+        ================================================== */
+
+        .submit {
+            background:
+                linear-gradient(
+                    135deg,
+                    #4F8FE8,
+                    #527FDD
+                );
+
+            color: white;
+
+            box-shadow:
+                0 2px 6px rgba(79, 143, 232, 0.18);
         }
+
+        .submit:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 12px rgba(79, 143, 232, 0.24);
+        }
+
+
+
+        /* ==================================================
+           취소 버튼
+        ================================================== */
 
         .cancel {
-            background: #999;
+            background: #F1F3F6;
+
+            color: #707B8A;
+
+            border: 1px solid #E0E5EB !important;
         }
 
         .cancel:hover {
-            background: #777;
+            background: #E8ECF1;
+
+            color: #566171;
+
+            transform: translateY(-1px);
         }
+
+
+
+        /* ==================================================
+           모바일
+        ================================================== */
 
         @media (max-width: 600px) {
 
@@ -118,29 +390,54 @@
                 overflow-x: hidden;
             }
 
+
+
+            /* 헤더 */
+
             header {
-                padding: 16px 12px;
+                height: 58px;
+            }
+
+            .header-inner {
+                width: 94%;
             }
 
             header h1 {
-                font-size: 22px;
+                font-size: 19px;
             }
+
+
+
+            /* 컨테이너 */
 
             .container {
                 width: 94%;
-                margin: 18px auto;
+
+                margin: 18px auto 35px;
             }
 
+
+
+            /* 공지 */
+
             .notice {
-                padding: 12px;
+                padding: 12px 14px;
+
                 margin-bottom: 18px;
-                font-size: 14px;
-                line-height: 1.5;
+
+                font-size: 13px;
+
+                border-radius: 7px;
             }
+
+
+
+            /* 폼 */
 
             .form-box {
                 padding: 18px;
-                border-radius: 10px;
+
+                border-radius: 8px;
             }
 
             .form-group {
@@ -148,30 +445,52 @@
             }
 
             label {
-                font-size: 15px;
+                margin-bottom: 7px;
+
+                font-size: 13px;
             }
 
-            input {
+
+
+            /* 입력창 */
+
+            input,
+            select {
+                height: 44px;
+
+                padding: 0 12px;
+
                 font-size: 16px;
-                padding: 12px;
             }
 
             textarea {
-                height: 350px;
-                font-size: 16px;
+                min-height: 350px;
+
                 padding: 12px;
+
+                font-size: 16px;
             }
 
+
+
+            /* 버튼 */
+
             .bottom {
-                margin-top: 20px;
-                display: flex;
                 flex-direction: column-reverse;
+
                 gap: 8px;
+
+                margin-top: 20px;
+
+                padding-top: 18px;
             }
 
             .bottom button {
                 width: 100%;
-                padding: 13px;
+
+                height: 44px;
+
+                font-size: 13px;
             }
 
         }
@@ -180,15 +499,36 @@
 
 </head>
 
+
 <body>
+
+
+    <!-- ==================================================
+         헤더
+    ================================================== -->
 
     <header>
 
-        <h1>IASA 게시판</h1>
+        <div class="header-inner">
+
+            <h1>
+                <a href="/">IASA 게시판</a>
+            </h1>
+
+        </div>
 
     </header>
 
-    <div class="container">
+
+
+    <!-- ==================================================
+         메인
+    ================================================== -->
+
+    <main class="container">
+
+
+        <!-- 공지사항 -->
 
         <div class="notice">
 
@@ -196,100 +536,292 @@
 
         </div>
 
-        <div class="form-box">
+
+
+        <!-- ==================================================
+             게시글 작성 폼
+        ================================================== -->
+
+        <section class="form-box">
+
+
+            <!-- 제목 -->
 
             <div class="form-group">
 
-                <label>제목</label>
+                <label for="title">
+                    제목
+                </label>
 
                 <input
                     id="title"
                     type="text"
                     maxlength="100"
-                    placeholder="제목을 입력하세요">
+                    placeholder="제목을 입력하세요"
+                >
 
             </div>
+
+
+
+            <!-- 카테고리 -->
 
             <div class="form-group">
 
-                <label>내용</label>
+                <label for="category">
+                    주제
+                </label>
+
+                <select id="category">
+
+                    <option value="일반">
+                        일반
+                    </option>
+
+                    <option value="학업·질문">
+                        학업·질문
+                    </option>
+
+                    <option value="시설·건의사항">
+                        시설·건의사항
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- 내용 -->
+
+            <div class="form-group">
+
+                <label for="content">
+                    내용
+                </label>
 
                 <textarea
                     id="content"
-                    placeholder="내용을 입력하세요"></textarea>
+                    placeholder="내용을 입력하세요"
+                ></textarea>
 
             </div>
+
+
+
+            <!-- 버튼 -->
 
             <div class="bottom">
 
                 <button
+                    type="button"
                     class="cancel"
-                    onclick="history.back()">
-
+                    id="cancelButton"
+                >
                     취소
-
                 </button>
 
                 <button
-                    onclick="writePost()">
-
+                    type="button"
+                    class="submit"
+                    id="submitButton"
+                >
                     등록
-
                 </button>
 
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
+
+
+
+    <!-- ==================================================
+         JavaScript
+    ================================================== -->
 
     <script>
 
+
+        /* ==================================================
+           DOM 요소
+        ================================================== */
+
+        const titleInput =
+            document.getElementById("title");
+
+        const categoryInput =
+            document.getElementById("category");
+
+        const contentInput =
+            document.getElementById("content");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+        const cancelButton =
+            document.getElementById("cancelButton");
+
+
+
+        /* ==================================================
+           게시글 등록
+        ================================================== */
+
         async function writePost() {
-            const title = document.getElementById("title").value.trim();
-            const content = document.getElementById("content").value.trim();
+
+            const title =
+                titleInput.value.trim();
+
+            const content =
+                contentInput.value.trim();
+
+            const category =
+                categoryInput.value;
+
+
+
+            /* 제목 확인 */
 
             if (title === "") {
+
                 alert("제목을 입력하세요.");
+
+                titleInput.focus();
+
                 return;
             }
+
+
+
+            /* 내용 확인 */
 
             if (content === "") {
+
                 alert("내용을 입력하세요.");
+
+                contentInput.focus();
+
                 return;
             }
 
+
+
             try {
-                const response = await fetch("/api/posts", {
-                    method: "POST",
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                /* 서버에 게시글 전송 */
 
-                    body: JSON.stringify({
-                        title: title,
-                        content: content
-                    })
-                });
+                const response =
+                    await fetch("/api/posts", {
 
-                const result = await response.json();
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            title,
+                            content,
+                            category
+                        })
+
+                    });
+
+
+
+                const result =
+                    await response.json();
+
+
+
+                /* 등록 성공 */
 
                 if (result.success) {
-                    alert("게시글이 등록되었습니다.");
-                    location.href = "index.html";
-                } else {
-                    alert("등록에 실패했습니다.");
+
+                    alert(
+                        "게시글이 등록되었습니다."
+                    );
+
+                    location.href =
+                        "index.html";
+
+                    return;
                 }
+
+
+
+                /* 등록 실패 */
+
+                alert(
+                    result.message ||
+                    "등록에 실패했습니다."
+                );
+
             }
 
-            catch (err) {
-                console.error(err);
-                alert("서버와 연결할 수 없습니다.");
+            catch (error) {
+
+                console.error(
+                    "게시글 등록 오류:",
+                    error
+                );
+
+                alert(
+                    "서버와 연결할 수 없습니다."
+                );
+
             }
+
         }
+
+
+
+        /* ==================================================
+           이벤트 연결
+        ================================================== */
+
+        submitButton.addEventListener(
+            "click",
+            writePost
+        );
+
+
+
+        cancelButton.addEventListener(
+            "click",
+            () => {
+                location.href = "/";
+            }
+        );
+
+
+
+        /* ==================================================
+           Ctrl + Enter로 게시글 등록
+        ================================================== */
+
+        contentInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.ctrlKey &&
+                    event.key === "Enter"
+                ) {
+
+                    writePost();
+
+                }
+
+            }
+        );
+
 
     </script>
 
 </body>
+
 </html>
