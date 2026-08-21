@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Pretendard -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    >
+
+    <title>마이페이지 - IASA 게시판</title>
+
+
+    <style>
+
+        /* ==================================================
+           디자인 변수
+        ================================================== */
+
+        :root {
+
+            --primary: #4267B2;
+            --primary-dark: #34549A;
+            --primary-light: #EEF3FF;
+
+            --background: #F3F6FA;
+            --surface: #FFFFFF;
+
+            --text: #202936;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+
+            --border: #E3E7ED;
+            --border-dark: #D5DAE2;
+
+            --danger: #E05252;
+
+            --shadow:
+                0 8px 30px rgba(31, 45, 61, 0.07);
+        }
+
+
+        /* ==================================================
+           기본 설정
+        ================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            font-family:
+                "Pretendard",
+                sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                var(--background);
+
+            color: var(--text);
+        }
+
+
+        /* ==================================================
+           헤더
+        ================================================== */
+
+        header {
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3F63A7 0%,
+                    #5278C2 55%,
+                    #668BD0 100%
+                );
+
+            color: white;
+
+            padding: 22px 20px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(31, 50, 80, 0.12);
+        }
+
+        header::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 1px;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+        }
+
+        header h1 {
+
+            text-align: center;
+
+            font-size: 25px;
+            font-weight: 700;
+
+            letter-spacing: -0.5px;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* ==================================================
+           전체 컨테이너
+        ================================================== */
+
+        .container {
+
+            width: 90%;
+            max-width: 520px;
+
+            margin: 42px auto;
+        }
+
+
+        /* ==================================================
+           마이페이지 카드
+        ================================================== */
+
+        .mypage-box {
+
+            background:
+                var(--surface);
+
+            padding: 32px;
+
+            border:
+                1px solid rgba(220, 225, 233, 0.8);
+
+            border-radius: 16px;
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        /* ==================================================
+           페이지 제목
+        ================================================== */
+
+        .page-header {
+
+            margin-bottom: 28px;
+        }
+
+        .page-title {
+
+            margin-bottom: 7px;
+
+            font-size: 24px;
+            font-weight: 700;
+
+            letter-spacing: -0.5px;
+        }
+
+        .page-description {
+
+            color:
+                var(--text-muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==================================================
+           섹션 제목
+        ================================================== */
+
+        .section-title {
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 18px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            color:
+                var(--text);
+        }
+
+        .section-title::before {
+
+            content: "";
+
+            width: 4px;
+            height: 16px;
+
+            border-radius: 4px;
+
+            background:
+                var(--primary);
+        }
+
+
+        /* ==================================================
+           입력 영역
+        ================================================== */
+
+        .form-group {
+
+            margin-bottom: 19px;
+        }
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color:
+                #374151;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+
+            width: 100%;
+            height: 45px;
+
+            padding:
+                0 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                var(--surface);
+
+            color:
+                var(--text);
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        input:hover {
+
+            border-color:
+                var(--border-dark);
+        }
+
+        input:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(66, 103, 178, 0.11);
+        }
+
+        input[readonly] {
+
+            background:
+                #F6F8FB;
+
+            color:
+                var(--text-secondary);
+
+            border-color:
+                #E7EAF0;
+
+            cursor:
+                default;
+        }
+
+
+        /* ==================================================
+           비밀번호 안내
+        ================================================== */
+
+        .password-description {
+
+            margin-top: 7px;
+
+            color:
+                var(--text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==================================================
+           구분선
+        ================================================== */
+
+        .section-divider {
+
+            height: 1px;
+
+            margin:
+                29px 0;
+
+            background:
+                #ECEEF2;
+        }
+
+
+        /* ==================================================
+           버튼 영역
+        ================================================== */
+
+        .button-area {
+
+            display: flex;
+
+            gap: 9px;
+
+            margin-top: 29px;
+        }
+
+        button {
+
+            flex: 1;
+
+            height: 45px;
+
+            padding:
+                0 18px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s,
+                border-color 0.2s,
+                transform 0.1s,
+                box-shadow 0.2s;
+        }
+
+        button:active {
+
+            transform:
+                scale(0.985);
+        }
+
+        button:disabled {
+
+            opacity: 0.55;
+
+            cursor:
+                not-allowed;
+        }
+
+
+        /* ==================================================
+           정보 변경 버튼
+        ================================================== */
+
+        .save-button {
+
+            background:
+                var(--primary);
+
+            color:
+                white;
+
+            box-shadow:
+                0 3px 8px
+                rgba(66, 103, 178, 0.18);
+        }
+
+        .save-button:hover {
+
+            background:
+                var(--primary-dark);
+
+            box-shadow:
+                0 5px 12px
+                rgba(66, 103, 178, 0.24);
+        }
+
+
+        /* ==================================================
+           목록으로 버튼
+        ================================================== */
+
+        .back-button {
+
+            background:
+                #F5F6F8;
+
+            color:
+                #555E6D;
+
+            border:
+                1px solid var(--border);
+        }
+
+        .back-button:hover {
+
+            background:
+                #ECEEF2;
+
+            border-color:
+                #D9DDE4;
+        }
+
+
+        /* ==================================================
+           모바일
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                width: 100%;
+
+                overflow-x:
+                    hidden;
+            }
+
+
+            /* 헤더 */
+
+            header {
+
+                padding:
+                    17px 12px;
+            }
+
+            header h1 {
+
+                font-size: 22px;
+            }
+
+
+            /* 컨테이너 */
+
+            .container {
+
+                width: 94%;
+
+                max-width:
+                    none;
+
+                margin:
+                    20px auto;
+            }
+
+
+            /* 카드 */
+
+            .mypage-box {
+
+                padding:
+                    21px 18px;
+
+                border-radius:
+                    13px;
+            }
+
+
+            /* 제목 */
+
+            .page-header {
+
+                margin-bottom:
+                    24px;
+            }
+
+            .page-title {
+
+                font-size:
+                    21px;
+            }
+
+            .page-description {
+
+                font-size:
+                    12px;
+            }
+
+
+            /* 섹션 */
+
+            .section-title {
+
+                font-size:
+                    14px;
+            }
+
+
+            /* 입력 */
+
+            .form-group {
+
+                margin-bottom:
+                    18px;
+            }
+
+            label {
+
+                font-size:
+                    13px;
+            }
+
+            input {
+
+                height:
+                    47px;
+
+                font-size:
+                    16px;
+            }
+
+
+            /* 구분선 */
+
+            .section-divider {
+
+                margin:
+                    25px 0;
+            }
+
+
+            /* 버튼 */
+
+            .button-area {
+
+                flex-direction:
+                    column-reverse;
+
+                gap:
+                    8px;
+
+                margin-top:
+                    24px;
+            }
+
+            .button-area button {
+
+                width:
+                    100%;
+
+                height:
+                    47px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         헤더
+    ================================================== -->
+
+    <header>
+
+        <h1>
+            <a href="/">IASA 게시판</a>
+        </h1>
+
+    </header>
+
+
+    <!-- ==================================================
+         메인
+    ================================================== -->
+
+    <main class="container">
+
+        <section class="mypage-box">
+
+
+            <!-- ==================================================
+                 페이지 제목
+            ================================================== -->
+
+            <div class="page-header">
+
+                <h2 class="page-title">
+                    내 정보
+                </h2>
+
+                <p class="page-description">
+                    회원 정보를 확인하고 닉네임과 비밀번호를 변경할 수 있습니다.
+                </p>
+
+            </div>
+
+
+            <!-- ==================================================
+                 기본 정보
+            ================================================== -->
+
+            <div class="section-title">
+                기본 정보
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="username">
+                    아이디
+                </label>
+
+                <input
+                    id="username"
+                    type="text"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nickname">
+                    닉네임
+                </label>
+
+                <input
+                    id="nickname"
+                    type="text"
+                    maxlength="30"
+                    placeholder="닉네임을 입력하세요."
+                >
+
+            </div>
+
+
+            <!-- ==================================================
+                 구분선
+            ================================================== -->
+
+            <div class="section-divider"></div>
+
+
+            <!-- ==================================================
+                 비밀번호
+            ================================================== -->
+
+            <div class="section-title">
+                비밀번호 변경
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="currentPassword">
+                    현재 비밀번호
+                </label>
+
+                <input
+                    id="currentPassword"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="현재 비밀번호를 입력하세요."
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    새 비밀번호
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="변경하지 않으려면 비워두세요."
+                >
+
+                <p class="password-description">
+                    새 비밀번호를 입력하지 않으면 기존 비밀번호가 유지됩니다.
+                </p>
+
+            </div>
+
+
+            <!-- ==================================================
+                 버튼
+            ================================================== -->
+
+            <div class="button-area">
+
+                <button
+                    type="button"
+                    class="back-button"
+                    onclick="goBack()"
+                >
+                    목록으로
+                </button>
+
+                <button
+                    id="saveButton"
+                    type="button"
+                    class="save-button"
+                    onclick="saveInfo()"
+                >
+                    변경하기
+                </button>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* ==================================================
+           사용자 정보 불러오기
+        ================================================== */
+
+        async function loadUser() {
+
+            try {
+
+                const response =
+                    await fetch("/api/me");
+
+                const user =
+                    await response.json();
+
+
+                /* 로그인 여부 확인 */
+
+                if (!user.loggedIn) {
+
+                    alert(
+                        "로그인이 필요합니다."
+                    );
+
+                    location.href =
+                        "login.html";
+
+                    return false;
+
+                }
+
+
+                /* 사용자 정보 표시 */
+
+                document
+                    .getElementById("username")
+                    .value =
+                        user.username || "";
+
+                document
+                    .getElementById("nickname")
+                    .value =
+                        user.nickname || "";
+
+
+                return true;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "사용자 정보 불러오기 오류:",
+                    error
+                );
+
+                alert(
+                    "사용자 정보를 불러올 수 없습니다."
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        /* ==================================================
+           사용자 정보 변경
+        ================================================== */
+
+        async function saveInfo() {
+
+            const nickname =
+                document
+                    .getElementById("nickname")
+                    .value
+                    .trim();
+
+            const currentPassword =
+                document
+                    .getElementById("currentPassword")
+                    .value;
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+
+            /* 닉네임 확인 */
+
+            if (!nickname) {
+
+                alert(
+                    "닉네임을 입력하세요."
+                );
+
+                document
+                    .getElementById("nickname")
+                    .focus();
+
+                return;
+
+            }
+
+
+            /* 현재 비밀번호 확인 */
+
+            if (!currentPassword) {
+
+                alert(
+                    "현재 비밀번호를 입력하세요."
+                );
+
+                document
+                    .getElementById("currentPassword")
+                    .focus();
+
+                return;
+
+            }
+
+
+            const saveButton =
+                document
+                    .getElementById("saveButton");
+
+
+            /* 중복 요청 방지 */
+
+            saveButton.disabled =
+                true;
+
+            saveButton.textContent =
+                "변경 중...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/mypage",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                nickname:
+                                    nickname,
+
+                                currentPassword:
+                                    currentPassword,
+
+                                password:
+                                    password
+
+                            })
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                /* 서버 오류 */
+
+                if (!response.ok) {
+
+                    alert(
+                        result.message ||
+                        "정보 변경에 실패했습니다."
+                    );
+
+                    return;
+
+                }
+
+
+                /* 변경 성공 */
+
+                if (result.success) {
+
+                    alert(
+                        "정보가 변경되었습니다."
+                    );
+
+                    location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+                /* 변경 실패 */
+
+                alert(
+                    result.message ||
+                    "정보 변경에 실패했습니다."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "정보 변경 오류:",
+                    error
+                );
+
+                alert(
+                    "서버와 연결할 수 없습니다."
+                );
+
+            }
+
+            finally {
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.textContent =
+                    "변경하기";
+
+            }
+
+        }
+
+
+        /* ==================================================
+           목록으로 이동
+        ================================================== */
+
+        function goBack() {
+
+            location.href =
+                "index.html";
+
+        }
+
+
+        /* ==================================================
+           키보드 이벤트
+        ================================================== */
+
+        function setupKeyboardEvents() {
+
+            const nicknameInput =
+                document
+                    .getElementById("nickname");
+
+            const currentPasswordInput =
+                document
+                    .getElementById(
+                        "currentPassword"
+                    );
+
+            const passwordInput =
+                document
+                    .getElementById("password");
+
+
+            /* 닉네임 → 현재 비밀번호 */
+
+            nicknameInput.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        currentPasswordInput
+                            .focus();
+
+                    }
+
+                }
+            );
+
+
+            /* 현재 비밀번호 → 새 비밀번호 */
+
+            currentPasswordInput.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        passwordInput
+                            .focus();
+
+                    }
+
+                }
+            );
+
+
+            /* 새 비밀번호 → 저장 */
+
+            passwordInput.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        saveInfo();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* ==================================================
+           페이지 초기화
+        ================================================== */
+
+        async function init() {
+
+            const isLoggedIn =
+                await loadUser();
+
+
+            if (!isLoggedIn) {
+
+                return;
+
+            }
+
+
+            setupKeyboardEvents();
+
+        }
+
+
+        /* ==================================================
+           실행
+        ================================================== */
+
+        init();
+
+    </script>
+
+</body>
+
+</html>
