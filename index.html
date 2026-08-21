@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    >
 
     <title>IASA 게시판</title>
 
+
     <style>
+
+        /* ==================================================
+           기본 설정
+        ================================================== */
 
         * {
             margin: 0;
@@ -17,241 +27,1003 @@
             font-family: "Pretendard", sans-serif;
         }
 
-        body {
-            background: #f5f7fb;
+        :root {
+            --primary: #4F8FE8;
+            --primary-dark: #3C78CC;
+            --primary-light: #EEF5FF;
+
+            --navy: #243B5A;
+            --text: #263445;
+            --sub-text: #7B8798;
+
+            --background: #F4F7FB;
+            --white: #FFFFFF;
+
+            --border: #E2E8F0;
+            --border-light: #EDF1F5;
+
+            --accent: #7A72E8;
+
+            --notice: #F3A83B;
         }
 
+        body {
+            background:
+                linear-gradient(
+                    180deg,
+                    #F7F9FC 0%,
+                    #F3F6FA 100%
+                );
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            letter-spacing: -0.15px;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* ==================================================
+           헤더
+        ================================================== */
+
         header {
-            background: #5FA8E8;
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4F8FE8 0%,
+                    #527FE0 100%
+                );
+
             color: white;
-            padding: 20px;
+
+            box-shadow:
+                0 3px 12px rgba(49, 79, 125, 0.16);
+
+            position: relative;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .header-inner {
+            width: 92%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         header h1 {
-            text-align: center;
+            font-size: 23px;
+
+            font-weight: 750;
+
+            letter-spacing: -0.8px;
+
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.08);
         }
+
+
+        /* ==================================================
+           헤더 로그인 영역
+        ================================================== */
+
+        .header-user {
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .header-user button {
+            border: 1px solid rgba(255, 255, 255, 0.20);
+
+            background: rgba(255, 255, 255, 0.13);
+
+            color: white;
+
+            padding: 8px 14px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s,
+                transform 0.2s,
+                border-color 0.2s;
+        }
+
+        .header-user button:hover {
+            background: rgba(255, 255, 255, 0.23);
+
+            border-color: rgba(255, 255, 255, 0.30);
+
+            transform: translateY(-1px);
+        }
+
+        #logoutButton {
+            background: rgba(31, 53, 90, 0.12);
+
+            border-color: rgba(255, 255, 255, 0.13);
+        }
+
+
+        /* ==================================================
+           전체 컨테이너
+        ================================================== */
 
         .container {
-            width: 90%;
+            width: 92%;
             max-width: 1100px;
-            margin: 30px auto;
+
+            margin: 30px auto 50px;
         }
 
+
+        /* ==================================================
+           공지사항
+        ================================================== */
+
         .notice {
-            background: #fff8d6;
-            border-left: 5px solid orange;
-            padding: 15px;
-            border-radius: 8px;
+            position: relative;
+
+            background: rgba(255, 255, 255, 0.92);
+
+            border: 1px solid var(--border);
+
+            border-left: 4px solid var(--notice);
+
+            padding: 15px 18px;
+
+            border-radius: 9px;
+
             margin-bottom: 25px;
+
+            font-size: 14px;
+
+            color: #5F6B7A;
+
+            line-height: 1.6;
+
+            box-shadow:
+                0 2px 8px rgba(43, 67, 96, 0.035);
         }
+
+
+        /* ==================================================
+           카테고리
+        ================================================== */
+
+        .categories {
+            display: flex;
+            align-items: center;
+
+            gap: 4px;
+
+            margin-bottom: 14px;
+
+            border-bottom: 1px solid var(--border);
+
+            padding-bottom: 10px;
+        }
+
+        .categories button {
+            border: none;
+
+            background: transparent;
+
+            color: #7A8493;
+
+            padding: 8px 15px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                background 0.18s,
+                color 0.18s,
+                transform 0.18s;
+        }
+
+        .categories button:hover {
+            background: var(--primary-light);
+
+            color: var(--primary);
+
+            transform: translateY(-1px);
+        }
+
+        .categories button.active {
+            background: var(--primary-light);
+
+            color: var(--primary);
+
+            font-weight: 700;
+        }
+
+
+        /* ==================================================
+           검색 + 글 작성
+        ================================================== */
 
         .top {
             display: flex;
+
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+
+            margin-bottom: 13px;
+
+            gap: 15px;
         }
+
+
+        /* ==================================================
+           검색
+        ================================================== */
 
         .search {
             display: flex;
-            gap: 10px;
+
+            width: 390px;
+
+            gap: 6px;
         }
 
         .search input {
-            width: 300px;
-            padding: 10px;
-            border: 1px solid #ccc;
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 10px 13px;
+
+            background: white;
+
+            border: 1px solid #D8E0EA;
+
             border-radius: 8px;
+
+            outline: none;
+
+            font-size: 13px;
+
+            color: var(--text);
+
+            box-shadow:
+                0 1px 3px rgba(43, 67, 96, 0.025);
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
         }
 
-        button {
+        .search input::placeholder {
+            color: #A1AAB7;
+        }
+
+        .search input:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(79, 143, 232, 0.11);
+        }
+
+        .search button {
+            padding: 10px 17px;
+
             border: none;
-            background: #5FA8E8;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4F8FE8,
+                    #527FDD
+                );
+
             color: white;
-            padding: 11px 18px;
+
             border-radius: 8px;
+
             cursor: pointer;
-            transition: .2s;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 2px 5px rgba(79, 143, 232, 0.18);
+
+            transition:
+                transform 0.18s,
+                box-shadow 0.18s;
         }
 
-        button:hover {
-            background: #4b97d9;
+        .search button:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 4px 9px rgba(79, 143, 232, 0.23);
         }
+
+
+        /* ==================================================
+           글 작성
+        ================================================== */
+
+        #writeButton {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4F8FE8,
+                    #527FDD
+                );
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 2px 6px rgba(79, 143, 232, 0.18);
+
+            transition:
+                transform 0.18s,
+                box-shadow 0.18s;
+        }
+
+        #writeButton:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 12px rgba(79, 143, 232, 0.24);
+        }
+
+
+        /* ==================================================
+           게시판
+        ================================================== */
 
         .post-list {
             background: white;
-            border-radius: 12px;
+
+            border: 1px solid var(--border);
+
+            border-top: 3px solid var(--primary);
+
+            border-radius: 10px;
+
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+
+            box-shadow:
+                0 3px 12px rgba(43, 67, 96, 0.045);
         }
+
+
+        /* ==================================================
+           게시글 한 줄
+        ================================================== */
 
         .post {
             display: flex;
             align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #eee;
+
+            min-height: 52px;
+
+            padding: 0 15px;
+
+            border-bottom: 1px solid var(--border-light);
+
+            background: white;
         }
 
-        .post.header {
-            background: #eef4fb;
-            font-weight: bold;
+        .post:last-child {
+            border-bottom: none;
         }
+
+
+        /* ==================================================
+           게시판 헤더
+        ================================================== */
+
+        .post.header {
+            min-height: 44px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #FAFBFD,
+                    #F7F9FC
+                );
+
+            color: #738095;
+
+            font-size: 13px;
+
+            font-weight: 650;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        /* ==================================================
+           게시글 hover
+        ================================================== */
 
         .post:not(.header) {
             cursor: pointer;
+
+            transition:
+                background 0.15s,
+                padding-left 0.15s;
         }
 
         .post:not(.header):hover {
-            background: #f7fbff;
+            background: #F8FBFF;
+
+            padding-left: 18px;
         }
+
+
+        /* ==================================================
+           게시판 열
+        ================================================== */
 
         .number {
             width: 80px;
+
+            flex-shrink: 0;
+
+            color: #98A3B1;
+
+            font-size: 13px;
+
+            text-align: center;
+
+            font-variant-numeric: tabular-nums;
         }
 
         .title {
             flex: 1;
+
+            min-width: 0;
+
+            padding-right: 15px;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            color: #344255;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+
+            display: flex;
+
+            align-items: center;
+        }
+
+        .post:not(.header):hover .title-text {
+            color: var(--primary);
+        }
+
+        .views {
+            width: 80px;
+
+            flex-shrink: 0;
+
+            text-align: center;
+
+            color: #98A3B1;
+
+            font-size: 12px;
+
+            font-variant-numeric: tabular-nums;
         }
 
         .date {
-            width: 150px;
+            width: 110px;
+
+            flex-shrink: 0;
+
             text-align: center;
-            color: #666;
+
+            color: #98A3B1;
+
+            font-size: 12px;
+
+            font-variant-numeric: tabular-nums;
         }
+
+
+        /* ==================================================
+           카테고리 태그
+        ================================================== */
+
+        .tag {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            margin-right: 8px;
+
+            padding: 3px 7px;
+
+            border-radius: 5px;
+
+            background: #F3F5F8;
+
+            color: #687486;
+
+            font-size: 11px;
+
+            line-height: 1.2;
+
+            font-weight: 650;
+        }
+
+
+        /* 일반 */
+
+        .tag.general {
+            background: #F1F3F6;
+
+            color: #687486;
+        }
+
+
+        /* 학업·질문 */
+
+        .tag.study {
+            background: #EEF5FF;
+
+            color: #4F8FE8;
+        }
+
+
+        /* 시설·건의사항 */
+
+        .tag.facility {
+            background: #FFF5E9;
+
+            color: #D58A27;
+        }
+
+
+        /* ==================================================
+           페이지네이션
+        ================================================== */
 
         .pagination {
             display: flex;
+
             justify-content: center;
-            gap: 6px;
-            margin-top: 20px;
+            align-items: center;
+
+            gap: 5px;
+
+            margin-top: 22px;
         }
 
         .pagination button {
-            min-width: 40px;
-            padding: 9px 12px;
+            min-width: 34px;
+            height: 34px;
+
+            padding: 0 9px;
+
+            background: white;
+
+            color: #7C8796;
+
+            border: 1px solid #DCE3EB;
+
+            border-radius: 7px;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s,
+                color 0.15s,
+                border-color 0.15s,
+                transform 0.15s;
+        }
+
+        .pagination button:hover {
+            background: var(--primary-light);
+
+            color: var(--primary);
+
+            border-color: #BDD4F2;
+
+            transform: translateY(-1px);
         }
 
         .pagination button.active {
-            background: #357fbd;
-            font-weight: bold;
+            background:
+                linear-gradient(
+                    135deg,
+                    #4F8FE8,
+                    #527FDD
+                );
+
+            border-color: var(--primary);
+
+            color: white;
+
+            font-weight: 650;
+
+            box-shadow:
+                0 2px 6px rgba(79, 143, 232, 0.18);
         }
 
         .pagination button:disabled {
-            background: #ccc;
+            background: #F1F3F6;
+
+            color: #AEB6C1;
+
             cursor: default;
+
+            transform: none;
         }
 
+
+        /* ==================================================
+           게시글 없음
+        ================================================== */
+
         .empty {
-            padding: 40px;
+            padding: 70px 20px;
+
             text-align: center;
-            color: #888;
+
+            color: #9AA5B3;
+
+            font-size: 14px;
         }
+
+
+        /* ==================================================
+           태블릿
+        ================================================== */
+
+        @media (max-width: 750px) {
+
+            .container {
+                width: 94%;
+            }
+
+            .top {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            #writeButton {
+                width: 100%;
+            }
+
+        }
+
+
+        /* ==================================================
+           모바일
+        ================================================== */
 
         @media (max-width: 600px) {
 
             body {
-                width: 100%;
                 overflow-x: hidden;
             }
 
+
+            /* 헤더 */
+
             header {
-                padding: 16px 12px;
+                height: 58px;
+            }
+
+            .header-inner {
+                width: 94%;
             }
 
             header h1 {
-                font-size: 22px;
+                font-size: 19px;
             }
+
+            .header-user button {
+                padding: 7px 10px;
+
+                font-size: 11px;
+
+                border-radius: 7px;
+            }
+
+
+            /* 컨테이너 */
 
             .container {
                 width: 94%;
-                max-width: none;
-                margin: 18px auto;
+
+                margin: 18px auto 35px;
             }
+
+
+            /* 공지 */
 
             .notice {
-                padding: 12px;
+                padding: 12px 14px;
+
                 margin-bottom: 18px;
-                font-size: 14px;
-                line-height: 1.5;
+
+                font-size: 13px;
+
+                border-radius: 7px;
             }
 
+
+            /* 카테고리 */
+
+            .categories {
+                gap: 2px;
+
+                margin-bottom: 12px;
+
+                padding-bottom: 7px;
+
+                overflow-x: auto;
+
+                white-space: nowrap;
+
+                scrollbar-width: none;
+            }
+
+            .categories::-webkit-scrollbar {
+                display: none;
+            }
+
+            .categories button {
+                flex-shrink: 0;
+
+                padding: 7px 12px;
+
+                font-size: 12px;
+            }
+
+
+            /* 검색 */
+
             .top {
-                display: flex;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-                margin-bottom: 15px;
+                gap: 7px;
+
+                margin-bottom: 10px;
             }
 
             .search {
-                display: flex;
                 width: 100%;
-                gap: 6px;
+
+                gap: 5px;
             }
 
             .search input {
-                width: auto;
-                flex: 1;
-                min-width: 0;
-                padding: 10px;
+                padding: 10px 11px;
+
+                font-size: 12px;
+
+                border-radius: 7px;
             }
 
             .search button {
-                flex-shrink: 0;
-                padding: 10px 14px;
+                padding: 10px 13px;
+
+                font-size: 12px;
+
+                border-radius: 7px;
             }
 
-            .top > button {
+
+            /* 글 작성 */
+
+            #writeButton {
                 width: 100%;
+
+                padding: 10px;
+
+                font-size: 12px;
+
+                border-radius: 7px;
             }
+
+
+            /* 게시판 */
 
             .post-list {
-                width: 100%;
+                border-top-width: 2px;
+
+                border-radius: 8px;
             }
 
             .post {
-                padding: 13px 10px;
-                min-width: 0;
+                min-height: 48px;
+
+                padding: 0 8px;
+            }
+
+            .post:not(.header):hover {
+                padding-left: 10px;
             }
 
             .post.header {
-                padding: 12px 10px;
-            }
+                min-height: 40px;
 
-            .number {
-                width: 40px;
-                flex-shrink: 0;
-                font-size: 13px;
-            }
-
-            .title {
-                min-width: 0;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                padding-right: 8px;
-            }
-
-            .date {
-                width: 75px;
-                flex-shrink: 0;
                 font-size: 11px;
             }
 
+
+            /* 번호 */
+
+            .number {
+                width: 38px;
+
+                font-size: 10px;
+            }
+
+
+            /* 제목 */
+
+            .title {
+                padding-right: 5px;
+
+                font-size: 12px;
+            }
+
+
+            /* 태그 */
+
+            .tag {
+                margin-right: 5px;
+
+                padding: 2px 5px;
+
+                border-radius: 4px;
+
+                font-size: 9px;
+            }
+
+
+            /* 조회수 */
+
+            .views {
+                width: 45px;
+
+                font-size: 10px;
+            }
+
+
+            /* 날짜 */
+
+            .date {
+                width: 67px;
+
+                font-size: 10px;
+            }
+
+
+            /* 페이지 */
+
             .pagination {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 6px;
-                margin-top: 18px;
-                margin-bottom: 20px;
+                gap: 4px;
+
+                margin-top: 17px;
             }
 
             .pagination button {
-                min-width: 36px;
-                padding: 8px 10px;
-                font-size: 13px;
+                min-width: 31px;
+
+                height: 31px;
+
+                padding: 0 7px;
+
+                font-size: 11px;
+
+                border-radius: 6px;
+            }
+
+        }
+
+
+        /* ==================================================
+           매우 작은 화면
+        ================================================== */
+
+        @media (max-width: 380px) {
+
+            .number {
+                width: 30px;
+            }
+
+            .views {
+                width: 40px;
+            }
+
+            .date {
+                width: 62px;
+            }
+
+            .title {
+                font-size: 11px;
+            }
+
+            .tag {
+                font-size: 8px;
+
+                padding: 2px 4px;
+
+                margin-right: 4px;
             }
 
         }
@@ -260,15 +1032,61 @@
 
 </head>
 
+
 <body>
+
+
+    <!-- ==================================================
+         헤더
+    ================================================== -->
 
     <header>
 
-        <h1>IASA 게시판</h1>
+        <div class="header-inner">
+
+            <h1>
+                <a href="/">IASA 게시판</a>
+            </h1>
+
+            <div class="header-user">
+
+    <button
+        id="loginButton"
+        onclick="location.href='login.html'"
+    >
+        로그인
+    </button>
+
+    <button
+        id="signupButton"
+        onclick="location.href='signup.html'"
+    >
+        회원가입
+    </button>
+
+    <button
+        id="logoutButton"
+        onclick="logout()"
+        style="display: none;"
+    >
+        로그아웃
+    </button>
+
+</div>
+
+        </div>
 
     </header>
 
+
+    <!-- ==================================================
+         메인
+    ================================================== -->
+
     <div class="container">
+
+
+        <!-- 공지사항 -->
 
         <div class="notice">
 
@@ -276,186 +1094,834 @@
 
         </div>
 
-        <div class="top">
 
-            <div class="search">
+        <!-- ==================================================
+             카테고리
+        ================================================== -->
 
-                <input type="text" id="keyword" placeholder="검색어">
+        <div class="categories">
 
-                <button onclick="searchPost()">검색</button>
+            <button
+                class="active"
+                onclick="selectCategory('전체', this)"
+            >
+                전체
+            </button>
 
-            </div>
+            <button
+                onclick="selectCategory('일반', this)"
+            >
+                일반
+            </button>
 
-            <button onclick="location.href='write.html'">
+            <button
+                onclick="selectCategory('학업·질문', this)"
+            >
+                학업·질문
+            </button>
 
-                + 글 작성
-
+            <button
+                onclick="selectCategory('시설·건의사항', this)"
+            >
+                시설·건의사항
             </button>
 
         </div>
 
+
+        <!-- ==================================================
+             검색 + 글 작성
+        ================================================== -->
+
+        <div class="top">
+
+            <div class="search">
+
+                <input
+                    type="text"
+                    id="keyword"
+                    placeholder="검색어를 입력하세요"
+                >
+
+                <button onclick="searchPost()">
+                    검색
+                </button>
+
+            </div>
+
+
+            <button
+                id="writeButton"
+                onclick="location.href='write.html'"
+            >
+                + 글 작성
+            </button>
+
+        </div>
+
+
+        <!-- ==================================================
+             게시글 목록
+        ================================================== -->
+
         <div class="post-list">
+
+
+            <!-- 게시판 헤더 -->
 
             <div class="post header">
 
-                <div class="number">번호</div>
+                <div class="number">
+                    번호
+                </div>
 
-                <div class="title">제목</div>
+                <div class="title">
+                    제목
+                </div>
 
-                <div class="date">작성일</div>
+                <div class="views">
+                    조회수
+                </div>
+
+                <div class="date">
+                    작성일
+                </div>
 
             </div>
+
+
+            <!-- 게시글이 들어가는 곳 -->
 
             <div id="posts"></div>
 
         </div>
 
-        <div class="pagination" id="pagination"></div>
+
+        <!-- ==================================================
+             페이지네이션
+        ================================================== -->
+
+        <div
+            class="pagination"
+            id="pagination"
+        ></div>
+
 
     </div>
+
+
+    <!-- ==================================================
+         JavaScript
+    ================================================== -->
 
     <script>
 
         let allPosts = [];
+
         let currentPage = 1;
+
         const postsPerPage = 10;
 
-        async function loadPosts() {
+        let currentCategory = "전체";
+
+
+        /* ==================================================
+           로그인 상태 확인
+        ================================================== */
+
+        async function checkLogin() {
+
             try {
-                const response = await fetch("/api/posts");
-                allPosts = await response.json();
-                currentPage = 1;
-                renderPosts();
+
+                const response =
+                    await fetch("/api/me");
+
+                const user =
+                    await response.json();
+
+
+                const loginButton =
+                    document.getElementById("loginButton");
+
+                const logoutButton =
+                    document.getElementById("logoutButton");
+
+                const writeButton =
+                    document.getElementById("writeButton");
+
+
+                if (user.loggedIn) {
+
+                    loginButton.innerText =
+                        user.nickname + " 님";
+
+                    loginButton.onclick = () => {
+
+                        location.href =
+                            "mypage.html";
+
+                    };
+
+
+                    writeButton.style.display =
+                        "block";
+
+                    logoutButton.style.display =
+                        "block";
+                    
+                    document.getElementById("signupButton").style.display = "none";
+
+                }
+
+                else {
+
+                    loginButton.innerText =
+                        "로그인";
+
+                    loginButton.onclick = () => {
+
+                        location.href =
+                            "login.html";
+
+                    };
+
+
+                    writeButton.style.display =
+                        "none";
+
+                    logoutButton.style.display =
+                        "none";
+
+                    document.getElementById("signupButton").style.display =
+    "block";
+
+                }
+
             }
 
             catch (err) {
+
                 console.error(err);
-                alert("게시글을 불러올 수 없습니다.");
+
+                document.getElementById(
+                    "writeButton"
+                ).style.display = "none";
+
+                document.getElementById(
+                    "logoutButton"
+                ).style.display = "none";
+
             }
+
         }
 
 
+        /* ==================================================
+           로그아웃
+        ================================================== */
+
+        async function logout() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/logout",
+                        {
+                            method: "POST"
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (result.success) {
+
+                    location.reload();
+
+                }
+
+                else {
+
+                    alert(
+                        "로그아웃에 실패했습니다."
+                    );
+
+                }
+
+            }
+
+            catch (err) {
+
+                console.error(err);
+
+                alert(
+                    "로그아웃할 수 없습니다."
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           게시글 불러오기
+        ================================================== */
+
+        async function loadPosts() {
+
+            try {
+
+                const response =
+                    await fetch("/api/posts");
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "게시글 불러오기 실패"
+                    );
+
+                }
+
+
+                allPosts =
+                    await response.json();
+
+
+                currentPage = 1;
+
+                renderPosts();
+
+            }
+
+            catch (err) {
+
+                console.error(err);
+
+                alert(
+                    "게시글을 불러올 수 없습니다."
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           카테고리 태그 클래스
+        ================================================== */
+
+        function getTagClass(category) {
+
+            if (category === "일반") {
+
+                return "general";
+
+            }
+
+            if (category === "학업·질문") {
+
+                return "study";
+
+            }
+
+            if (category === "시설·건의사항") {
+
+                return "facility";
+
+            }
+
+            return "general";
+
+        }
+
+
+        /* ==================================================
+           HTML 특수문자 방어
+        ================================================== */
+
+        function escapeHTML(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* ==================================================
+           게시글 화면 표시
+        ================================================== */
+
         function renderPosts() {
-            const posts = document.getElementById("posts");
-            const pagination = document.getElementById("pagination");
+
+            const posts =
+                document.getElementById("posts");
+
+            const pagination =
+                document.getElementById("pagination");
+
 
             posts.innerHTML = "";
+
             pagination.innerHTML = "";
 
+
+            /* 게시글 없음 */
+
             if (allPosts.length === 0) {
+
                 posts.innerHTML = `
+
                     <div class="empty">
+
                         아직 작성된 글이 없습니다.
+
                     </div>
+
                 `;
 
                 return;
+
             }
 
-            // 현재 페이지에 표시할 글 계산
 
-            const start = (currentPage - 1) * postsPerPage;
-            const end = start + postsPerPage;
-            const pagePosts = allPosts.slice(start, end);
+            /* 현재 페이지 */
 
-            // 게시글 표시
+            const start =
+                (currentPage - 1) *
+                postsPerPage;
+
+            const end =
+                start +
+                postsPerPage;
+
+
+            const pagePosts =
+                allPosts.slice(start, end);
+
+
+            /* 게시글 출력 */
 
             pagePosts.forEach(post => {
-                const date = new Date(post.created_at);
-                const y = date.getFullYear();
-                const m = String(date.getMonth() + 1).padStart(2, "0");
-                const d = String(date.getDate()).padStart(2, "0");
+
+                const date =
+                    new Date(post.created_at);
+
+
+                const y =
+                    date.getFullYear();
+
+
+                const m =
+                    String(
+                        date.getMonth() + 1
+                    ).padStart(2, "0");
+
+
+                const d =
+                    String(
+                        date.getDate()
+                    ).padStart(2, "0");
+
+
+                const categoryValue =
+                    post.category ||
+                    "일반";
+
+
+                const category =
+                    escapeHTML(
+                        categoryValue
+                    );
+
+
+                const tagClass =
+                    getTagClass(
+                        categoryValue
+                    );
+
+
+                const title =
+                    escapeHTML(
+                        post.title
+                    );
+
+
+                const views =
+                    Number.isFinite(
+                        Number(post.views)
+                    )
+                        ? Number(post.views)
+                        : 0;
+
 
                 posts.innerHTML += `
-                    <div class="post" onclick="openPost(${post.id})">
 
-                        <div class="number">${post.id}</div>
+                    <div
+                        class="post"
+                        onclick="openPost(${post.id})"
+                    >
 
-                        <div class="title">${post.title}</div>
+                        <div class="number">
 
-                        <div class="date">${y}-${m}-${d}</div>
+                            ${post.id}
+
+                        </div>
+
+
+                        <div class="title">
+
+                            <span
+                                class="tag ${tagClass}"
+                            >
+                                ${category}
+                            </span>
+
+                            <span class="title-text">
+
+                                ${title}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="views">
+
+                            ${views}
+
+                        </div>
+
+
+                        <div class="date">
+
+                            ${y}-${m}-${d}
+
+                        </div>
 
                     </div>
 
                 `;
+
             });
 
 
-            // 페이지 수
+            /* ==================================================
+               페이지네이션
+            ================================================== */
 
-            const totalPages = Math.ceil(allPosts.length / postsPerPage);
+            const totalPages =
+                Math.ceil(
+                    allPosts.length /
+                    postsPerPage
+                );
 
-            // 페이지 버튼
 
-            for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement("button");
+            for (
+                let i = 1;
+                i <= totalPages;
+                i++
+            ) {
 
-                button.innerText = i;
+                const button =
+                    document.createElement("button");
 
-                if (i === currentPage) {
-                    button.classList.add("active");
+
+                button.innerText =
+                    i;
+
+
+                if (
+                    i === currentPage
+                ) {
+
+                    button.classList.add(
+                        "active"
+                    );
+
                 }
 
+
                 button.onclick = () => {
-                    currentPage = i;
+
+                    currentPage =
+                        i;
+
                     renderPosts();
+
                 };
 
-                pagination.appendChild(button);
+
+                pagination.appendChild(
+                    button
+                );
+
             }
+
         }
 
+
+        /* ==================================================
+           게시글 열기
+        ================================================== */
 
         function openPost(id) {
-            location.href = "post.html?id=" + id;
+
+            location.href =
+                "post.html?id=" + id;
+
         }
 
+
+        /* ==================================================
+           검색
+        ================================================== */
 
         async function searchPost() {
 
-            const keyword = document
-                .getElementById("keyword")
-                .value
-                .trim();
+            const keyword =
+                document
+                    .getElementById("keyword")
+                    .value
+                    .trim();
+
+
+            /* 검색어가 없으면 현재 카테고리 다시 불러오기 */
 
             if (keyword === "") {
-                loadPosts();
+
+                if (
+                    currentCategory ===
+                    "전체"
+                ) {
+
+                    loadPosts();
+
+                }
+
+                else {
+
+                    selectCategory(
+                        currentCategory
+                    );
+
+                }
 
                 return;
 
             }
 
+
             try {
-                const response = await fetch(
-                    "/api/posts/search?keyword=" + encodeURIComponent(keyword)
-                );
+
+                const response =
+                    await fetch(
+                        "/api/posts/search?keyword=" +
+                        encodeURIComponent(
+                            keyword
+                        )
+                    );
+
 
                 if (!response.ok) {
-                    throw new Error("검색 실패");
+
+                    throw new Error(
+                        "검색 실패"
+                    );
+
                 }
 
-                allPosts = await response.json();
+
+                allPosts =
+                    await response.json();
+
+
                 currentPage = 1;
 
+
                 renderPosts();
+
             }
 
             catch (err) {
+
                 console.error(err);
-                alert("검색할 수 없습니다.");
+
+                alert(
+                    "검색할 수 없습니다."
+                );
+
             }
+
         }
 
 
-        document.getElementById("keyword").addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                searchPost();
+        /* ==================================================
+           카테고리 선택
+        ================================================== */
+
+        async function selectCategory(
+            category,
+            button
+        ) {
+
+            try {
+
+                currentCategory =
+                    category;
+
+
+                /* 선택된 버튼 표시 */
+
+                setActiveCategory(
+                    category
+                );
+
+
+                let url =
+                    "/api/posts";
+
+
+                if (
+                    category !==
+                    "전체"
+                ) {
+
+                    url +=
+                        "?category=" +
+                        encodeURIComponent(
+                            category
+                        );
+
+                }
+
+
+                const response =
+                    await fetch(url);
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "게시글을 불러오지 못했습니다."
+                    );
+
+                }
+
+
+                allPosts =
+                    await response.json();
+
+
+                currentPage = 1;
+
+
+                renderPosts();
+
             }
-        });
+
+            catch (err) {
+
+                console.error(err);
+
+                alert(
+                    "게시글을 불러올 수 없습니다."
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           현재 카테고리 버튼 활성화
+        ================================================== */
+
+        function setActiveCategory(
+            category
+        ) {
+
+            const buttons =
+                document.querySelectorAll(
+                    ".categories button"
+                );
+
+
+            buttons.forEach(button => {
+
+                if (
+                    button.innerText.trim() ===
+                    category
+                ) {
+
+                    button.classList.add(
+                        "active"
+                    );
+
+                }
+
+                else {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            });
+
+        }
+
+
+        /* ==================================================
+           검색창 Enter
+        ================================================== */
+
+        document
+            .getElementById("keyword")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key ===
+                        "Enter"
+                    ) {
+
+                        searchPost();
+
+                    }
+
+                }
+            );
+
+
+        /* ==================================================
+           페이지 시작
+        ================================================== */
+
+        checkLogin();
 
         loadPosts();
 
     </script>
 
 </body>
+
 </html>
