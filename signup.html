@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    >
+
+    <title>회원가입 - IASA 게시판</title>
+
+
+    <style>
+
+        /* ==================================================
+           기본 설정
+        ================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Pretendard", sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #20252b;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* ==================================================
+           헤더
+        ================================================== */
+
+        header {
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #579fe0,
+                    #67b2e8
+                );
+
+            color: white;
+
+            box-shadow:
+                0 2px 10px rgba(48, 102, 150, 0.15);
+        }
+
+        .header-inner {
+            width: 92%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            font-size: 23px;
+            font-weight: 750;
+            letter-spacing: -0.7px;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .header-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 500;
+        }
+
+
+        /* ==================================================
+           전체 영역
+        ================================================== */
+
+        .container {
+            width: 92%;
+            max-width: 520px;
+
+            margin: 42px auto 60px;
+        }
+
+
+        /* ==================================================
+           페이지 제목
+        ================================================== */
+
+        .page-header {
+            margin-bottom: 18px;
+        }
+
+        .page-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            color: #4d99d5;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        .page-label::before {
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #5fa8e8;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 750;
+
+            letter-spacing: -0.7px;
+
+            color: #252a30;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+
+            color: #8a929c;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* ==================================================
+           회원가입 박스
+        ================================================== */
+
+        .signup-box {
+            background: white;
+
+            border: 1px solid #e5e9ee;
+            border-radius: 12px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 4px 18px rgba(38, 67, 92, 0.06);
+        }
+
+
+        /* ==================================================
+           입력 영역
+        ================================================== */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #39414a;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: -0.2px;
+        }
+
+        label::after {
+            content: "*";
+
+            margin-left: 4px;
+
+            color: #5fa8e8;
+
+            font-size: 12px;
+        }
+
+
+        /* ==================================================
+           입력창
+        ================================================== */
+
+        input,
+        select {
+            width: 100%;
+            height: 46px;
+
+            padding: 0 13px;
+
+            border: 1px solid #dfe4e9;
+            border-radius: 8px;
+
+            background: #fcfdff;
+
+            color: #252a30;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        input::placeholder {
+            color: #aeb5bd;
+        }
+
+        input:hover,
+        select:hover {
+            border-color: #c9d5df;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5fa8e8;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px rgba(95, 168, 232, 0.11);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+
+        /* ==================================================
+           안내 문구
+        ================================================== */
+
+        .input-description {
+            margin-top: 6px;
+
+            color: #9aa2ab;
+
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+
+        /* ==================================================
+           구분선
+        ================================================== */
+
+        .form-divider {
+            height: 1px;
+
+            background: #edf0f3;
+
+            margin: 26px 0 20px;
+        }
+
+
+        /* ==================================================
+           버튼
+        ================================================== */
+
+        .buttons {
+            display: flex;
+
+            gap: 8px;
+        }
+
+        .buttons button {
+            height: 44px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition:
+                background 0.2s,
+                border-color 0.2s,
+                transform 0.1s;
+        }
+
+        .buttons button:active {
+            transform: translateY(1px);
+        }
+
+
+        /* 취소 */
+
+        .cancel-button {
+            flex: 1;
+
+            border: 1px solid #dfe3e7;
+
+            background: white;
+
+            color: #707780;
+        }
+
+        .cancel-button:hover {
+            background: #f7f8fa;
+            border-color: #d3d8de;
+        }
+
+
+        /* 회원가입 */
+
+        .signup-button {
+            flex: 2;
+
+            border: 1px solid #5fa8e8;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #5fa8e8,
+                    #69b0e6
+                );
+
+            color: white;
+
+            box-shadow:
+                0 3px 8px rgba(76, 147, 205, 0.18);
+        }
+
+        .signup-button:hover {
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f99da,
+                    #5da7df
+                );
+
+            box-shadow:
+                0 4px 11px rgba(76, 147, 205, 0.25);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            box-shadow: none;
+        }
+
+
+        /* ==================================================
+           로그인 링크
+        ================================================== */
+
+        .login-link {
+            margin-top: 17px;
+
+            text-align: center;
+
+            color: #8a929c;
+
+            font-size: 12px;
+        }
+
+        .login-link a {
+            color: #4d99d5;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ==================================================
+           모바일
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            header {
+                height: 58px;
+            }
+
+            .header-inner {
+                width: 94%;
+            }
+
+            header h1 {
+                font-size: 19px;
+            }
+
+            .header-subtitle {
+                display: none;
+            }
+
+            .container {
+                width: 94%;
+
+                margin: 25px auto 40px;
+            }
+
+            .page-header {
+                margin-bottom: 13px;
+            }
+
+            .page-header h2 {
+                font-size: 21px;
+            }
+
+            .page-header p {
+                font-size: 12px;
+            }
+
+            .signup-box {
+                padding: 19px;
+
+                border-radius: 10px;
+            }
+
+            .form-group {
+                margin-bottom: 17px;
+            }
+
+            input,
+            select {
+                height: 44px;
+
+                padding: 0 11px;
+
+                font-size: 14px;
+            }
+
+            .form-divider {
+                margin: 22px 0 16px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .buttons button {
+                width: 100%;
+            }
+
+            .cancel-button,
+            .signup-button {
+                flex: none;
+            }
+
+        }
+
+
+        /* ==================================================
+           매우 작은 화면
+        ================================================== */
+
+        @media (max-width: 380px) {
+
+            .signup-box {
+                padding: 15px;
+            }
+
+            .page-header h2 {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         헤더
+    ================================================== -->
+
+    <header>
+
+        <div class="header-inner">
+
+            <h1>
+                <a href="/">
+                    IASA 게시판
+                </a>
+            </h1>
+
+            <span class="header-subtitle">
+                COMMUNITY
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         메인
+    ================================================== -->
+
+    <main class="container">
+
+
+        <!-- 페이지 제목 -->
+
+        <div class="page-header">
+
+            <div class="page-label">
+                ACCOUNT
+            </div>
+
+            <h2>
+                회원가입
+            </h2>
+
+            <p>
+                IASA 게시판 이용을 위한 계정을 만들어주세요.
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             회원가입 폼
+        ================================================== -->
+
+        <section class="signup-box">
+
+            <form id="signupForm">
+
+
+                <!-- 아이디 -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        아이디
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        maxlength="50"
+                        placeholder="아이디를 입력하세요."
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- 비밀번호 -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        비밀번호
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        maxlength="100"
+                        placeholder="비밀번호를 입력하세요."
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <div class="input-description">
+    비밀번호는 6자 이상이어야 합니다.
+</div>
+
+                </div>
+
+
+                <!-- 비밀번호 확인 -->
+
+                <div class="form-group">
+
+                    <label for="passwordConfirm">
+                        비밀번호 확인
+                    </label>
+
+                    <input
+                        type="password"
+                        id="passwordConfirm"
+                        maxlength="100"
+                        placeholder="비밀번호를 다시 입력하세요."
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- 실제 이름 -->
+
+                <div class="form-group">
+
+                    <label for="realName">
+                        이름
+                    </label>
+
+                    <input
+                        type="text"
+                        id="realName"
+                        maxlength="50"
+                        placeholder="실명을 입력하세요."
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- 학번 -->
+
+                <div class="form-group">
+
+                    <label for="studentId">
+                        학번
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentId"
+                        maxlength="20"
+                        placeholder="학번을 입력하세요."
+                        required
+                    >
+
+                    <div class="input-description">
+                        학번은 중복될 수 있습니다.
+                    </div>
+
+                </div>
+
+
+                <!-- 기수 -->
+
+                <div class="form-group">
+
+                    <label for="generation">
+                        기수
+                    </label>
+
+                    <select
+                        id="generation"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            selected
+                            disabled
+                        >
+                            기수를 선택하세요.
+                        </option>
+
+                        <option value="1">1기</option>
+                        <option value="2">2기</option>
+                        <option value="3">3기</option>
+                        <option value="4">4기</option>
+                        <option value="5">5기</option>
+                        <option value="6">6기</option>
+                        <option value="7">7기</option>
+                        <option value="8">8기</option>
+                        <option value="9">9기</option>
+                        <option value="10">10기</option>
+                        <option value="11">11기</option>
+                        <option value="12">12기</option>
+                        <option value="13">13기</option>
+                        <option value="14">14기</option>
+                        <option value="15">15기</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- 닉네임 -->
+
+                <div class="form-group">
+
+                    <label for="nickname">
+                        닉네임
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nickname"
+                        maxlength="50"
+                        placeholder="게시판에서 사용할 닉네임"
+                        required
+                    >
+
+                    <div class="input-description">
+                        게시글과 댓글에 표시되는 이름입니다.
+                    </div>
+
+                </div>
+
+
+                <!-- 구분선 -->
+
+                <div class="form-divider"></div>
+
+
+                <!-- 버튼 -->
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="location.href='/login.html'"
+                    >
+                        취소
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="signupButton"
+                        class="signup-button"
+                    >
+                        회원가입
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- 로그인 -->
+
+            <div class="login-link">
+
+                이미 계정이 있으신가요?
+
+                <a href="/login.html">
+                    로그인
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         JavaScript
+    ================================================== -->
+
+    <script>
+
+        const signupForm =
+            document.getElementById("signupForm");
+
+        const signupButton =
+            document.getElementById("signupButton");
+
+
+        signupForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                /* =========================
+                   입력값 가져오기
+                ========================= */
+
+                const username =
+                    document
+                        .getElementById("username")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+                const passwordConfirm =
+                    document
+                        .getElementById("passwordConfirm")
+                        .value;
+
+                const real_name =
+                    document
+                        .getElementById("realName")
+                        .value
+                        .trim();
+
+                const student_id =
+                    document
+                        .getElementById("studentId")
+                        .value
+                        .trim();
+
+                const generation =
+                    document
+                        .getElementById("generation")
+                        .value;
+
+                const nickname =
+                    document
+                        .getElementById("nickname")
+                        .value
+                        .trim();
+
+
+                /* =========================
+                   비밀번호 확인
+                ========================= */
+
+                if (password !== passwordConfirm) {
+
+                    alert(
+                        "비밀번호가 일치하지 않습니다."
+                    );
+
+                    document
+                        .getElementById("passwordConfirm")
+                        .focus();
+
+                    return;
+
+                }
+
+
+                /* =========================
+                   회원가입 버튼 비활성화
+                ========================= */
+
+                signupButton.disabled = true;
+
+                signupButton.textContent =
+                    "가입 중...";
+
+
+                try {
+
+                    /* =========================
+                       서버에 회원가입 요청
+                    ========================= */
+
+                    const response =
+                        await fetch(
+                            "/api/register",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        username:
+                                            username,
+
+                                        password:
+                                            password,
+
+                                        real_name:
+                                            real_name,
+
+                                        student_id:
+                                            student_id,
+
+                                        generation:
+                                            generation,
+
+                                        nickname:
+                                            nickname
+                                    })
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    /* =========================
+                       회원가입 실패
+                    ========================= */
+
+                    if (!response.ok) {
+
+                        alert(
+                            result.message ||
+                            "회원가입에 실패했습니다."
+                        );
+
+                        signupButton.disabled =
+                            false;
+
+                        signupButton.textContent =
+                            "회원가입";
+
+                        return;
+
+                    }
+
+
+                    /* =========================
+                       회원가입 성공
+                    ========================= */
+
+                    alert(
+                        "회원가입이 완료되었습니다."
+                    );
+
+                    location.href =
+                        "/login.html";
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "회원가입 오류:",
+                        error
+                    );
+
+                    alert(
+                        "회원가입 중 서버와 연결할 수 없습니다."
+                    );
+
+                    signupButton.disabled =
+                        false;
+
+                    signupButton.textContent =
+                        "회원가입";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
